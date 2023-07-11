@@ -1,42 +1,78 @@
 {
-  "name": "docx-to-vfile",
-  "version": "0.6.1",
-  "license": "GPL-3.0-or-later",
-  "repository": "https://github.com/TrialAndErrorOrg/parsers",
-  "author": "Thomas F. K. Jorna <hello@tefkah.com>",
+  "name": "@171h/docx-to-vfile",
   "type": "module",
-  "description": "Reads a `.docx` file and stores its components in vfile format to be processed by other tools, like `reoff-parse`.",
+  "version": "0.7.0",
+  "packageManager": "pnpm@8.1.1",
+  "description": "",
   "keywords": [
-    "unified",
-    "docx",
-    "vfile",
-    "ooxast",
-    "ooxml",
-    "office",
-    "word"
+    "utils"
   ],
-  "typedoc": {
-    "entryPoint": "./src/index.ts",
-    "readmeFile": "./README.md",
-    "displayName": "docx-to-vfile",
-    "tsconfig": "./tsconfig.lib.json"
-  },
+  "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "./index.js",
-  "browser": {
-    "fs": false,
-    "stream": false,
-    "buffer": false
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
   },
-  "types": "./index.d.ts",
   "files": [
-    "index.d.ts",
-    "index.js",
-    "./lib"
-  ]
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "release": "npx changelogen@latest --release && npm publish --access public",
+    "start": "esno src/index.ts",
+    "test": "vitest --watch",
+    "bench": "vitest bench",
+    "test-ui": "vitest --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@171h/dayjs-business-time": "^1.1.0",
+    "@antfu/eslint-config": "^0.39.3",
+    "@antfu/ni": "^0.21.3",
+    "@antfu/utils": "^0.7.2",
+    "@types/luxon": "^3.3.0",
+    "@types/node": "^20.2.5",
+    "@vitest/ui": "^0.31.1",
+    "bumpp": "^9.1.0",
+    "changelogen": "^0.5.3",
+    "dayjs": "^1.11.7",
+    "eslint": "^8.41.0",
+    "esno": "^0.16.3",
+    "lint-staged": "^13.2.2",
+    "luxon": "^3.3.0",
+    "moment": "^2.29.4",
+    "pnpm": "^8.5.1",
+    "rimraf": "^5.0.1",
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "^5.0.4",
+    "unbuild": "^1.2.1",
+    "vite": "^4.3.9",
+    "vitest": "^0.31.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "dependencies": {
+    "unzipit": "^1.4.3",
+    "vfile": "^6.0.1"
+  }
 }
